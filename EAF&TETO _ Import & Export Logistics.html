@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EAF&amp;TETO | Import &amp; Export Logistics</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 44'%3E%3Crect width='64' height='44' rx='8' fill='%230a3550'/%3E%3Cpath d='M14 12 Q28 8 46 11 Q49 12 46 13 Q28 16 14 14Z M30 12 L24 4 L28 4 L38 11Z M30 13 L24 21 L28 21 L38 14Z' fill='%236fb8ea'/%3E%3Cpath d='M8 30 H56 L49 39 H15Z' fill='%23e6f0f7'/%3E%3Crect x='20' y='24' width='18' height='6' fill='%23e6f0f7'/%3E%3Crect x='42' y='25' width='9' height='5' fill='%231f6fa8'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Barlow:wght@400;500&display=swap">
+<style>
+:root{--accent:#1f6fa8;--bg:#e6f0f7;--ink:#0a3550;--text:#16293b;--onink:#e6f0f7;--surface:#f4f9fc;--muted:#4d6272;--line:#c5d6e2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+html{scroll-padding-top:calc(110px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 Barlow,system-ui,sans-serif}
+h1,h2,h3{font-family:"Barlow Semi Condensed",system-ui,sans-serif;margin:0;line-height:1.15}
+a{color:inherit}:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line);border-top:4px solid var(--ink)}
+.top{display:flex;align-items:center;justify-content:space-between;padding-block:10px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:60px;height:42px;color:var(--ink)}
+.logo b{display:block;font:700 26px "Barlow Semi Condensed";letter-spacing:.5px;line-height:1}
+.logo b i{font-style:normal;color:var(--accent)}
+.logo small{display:block;font:600 13px "Barlow Semi Condensed";color:var(--muted);letter-spacing:1px}
+#acc{all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;font:600 15px "Barlow Semi Condensed"}
+#acc:focus-visible{outline:3px solid var(--accent)}
+nav{display:flex;justify-content:center;gap:34px;flex-wrap:wrap;padding-bottom:6px}
+nav a{padding:10px 0;font:500 17px "Barlow Semi Condensed";text-decoration:none;color:var(--muted);border-bottom:2px solid transparent}
+nav a:hover,nav a[aria-current=page]{color:var(--accent);border-color:var(--accent)}
+.dark{position:relative;background:var(--ink);color:var(--onink);overflow:hidden}
+.dark>svg.ph{position:absolute;inset:0;width:100%;height:100%}
+.dark .wrap{position:relative;z-index:1}
+.shade::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,25,40,.82),rgba(5,25,40,.15))}
+.hero{min-height:560px;display:flex;align-items:center}
+.hero h1{font-size:clamp(38px,5.6vw,66px);font-weight:700;max-width:15ch}
+.hero p{max-width:48ch;font-size:19px;color:#e2eef6;margin:20px 0 28px}
+em{font-style:normal;color:var(--accent)}.dark em{color:#7cc0f0}
+.btn{display:inline-block;padding:12px 34px;font:600 17px "Barlow Semi Condensed";border-radius:30px;border:2px solid currentColor;background:none;color:inherit;text-decoration:none;cursor:pointer}
+.btn.red{background:var(--accent);border-color:var(--accent);color:#fff}.btn:hover{filter:brightness(1.12)}
+.arc{height:60px;background:var(--bg);border-radius:60px 60px 0 0;margin-top:-58px;position:relative;z-index:2}
+.chev{position:absolute;right:6%;top:30px;width:70px;height:110px;z-index:2}
+section{padding:76px 0;position:relative}
+h2{font-size:clamp(28px,3.6vw,40px);font-weight:600;margin-bottom:8px}
+.sub{color:var(--muted);margin:0 0 40px}
+.cards,.pills{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:20px 20px 12px 12px;padding:26px;box-shadow:0 8px 22px rgba(10,53,80,.08)}
+.card svg.i{width:44px;height:44px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
+.card h3{font-size:21px;font-weight:600;margin-bottom:6px}.card p{margin:0;color:var(--muted);font-size:16px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.split{display:grid;grid-template-columns:1.15fr 1fr;gap:56px;align-items:center}
+.split.rev{grid-template-columns:1fr 1.15fr}
+.split p{margin:0 0 14px;max-width:60ch}
+.img{border-radius:28px 28px 28px 70px;overflow:hidden;background:#cfe8f6;box-shadow:0 12px 30px rgba(10,53,80,.2);position:relative}
+.img svg{display:block;width:100%;height:auto}
+.img .tag{position:absolute;left:0;bottom:0;background:var(--accent);color:#fff;padding:8px 26px 8px 20px;border-radius:0 22px 0 0;font:700 22px "Barlow Semi Condensed"}
+.carry{position:relative;max-width:380px;margin:0 auto}
+.carry svg{width:100%;height:auto;display:block}
+.pill{display:flex;align-items:center;gap:16px;border:2px solid var(--accent);border-radius:60px 14px 14px 60px;padding:14px 22px 14px 14px;margin-bottom:18px}
+.pill span{flex:none;width:64px;height:64px;border-radius:50%;background:var(--surface);box-shadow:-5px -5px 0 var(--accent),0 6px 14px rgba(10,53,80,.2);display:grid;place-items:center}
+.pill svg{width:32px;height:32px;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pill h3{font-size:20px;font-weight:600}.pill p{margin:2px 0 0;font-size:15px;color:var(--muted);line-height:1.35}
+.band{background:var(--ink);color:var(--onink);border-radius:28px;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;overflow:hidden;border-bottom:8px solid var(--accent)}
+.band div.t{padding:40px 44px}.band h2{color:#fff}.band p{color:#d4e3ee;margin:0 0 20px}
+.band svg{width:100%;max-width:300px;height:auto;display:block;margin:0 auto}
+.page-ban{padding:90px 0 110px;text-align:center}
+.page-ban h1{font-size:clamp(46px,8vw,96px);font-weight:700;color:#fff;letter-spacing:1px}
+.empty{border:2px dashed var(--line);border-radius:16px;padding:40px;text-align:center;color:var(--muted)}
+.fm{padding:84px 0}.fm h2{color:#fff;margin-bottom:36px}
+form.g{display:grid;grid-template-columns:1fr 1fr;gap:26px 80px;max-width:980px}
+.full{grid-column:1/-1}.fld{display:grid;gap:6px}
+.fld>span{font:600 19px "Barlow Semi Condensed"}.fld>span i{color:#7cc0f0;font-style:normal}
+.fld input,.fld select,.fld textarea{font:inherit;color:inherit;background:transparent;border:0;border-bottom:1.5px solid rgba(255,255,255,.7);padding:9px 2px;width:100%;border-radius:0}
+.fld option{color:#14283a}.fld textarea{min-height:90px;resize:vertical}
+.row{display:flex;gap:10px}.row select{width:96px;flex:none}
+.submit{grid-column:1/-1;text-align:center;margin-top:10px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.msg{width:100%;min-height:1.4em;margin:6px 0 0;font-weight:500}
+.light-form .fld input,.light-form .fld select,.light-form .fld textarea{border-bottom-color:var(--line);color:var(--text)}
+.ct{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.ct .card h3{font-size:20px}.ct .card a{font:600 21px "Barlow Semi Condensed";text-decoration:none;overflow-wrap:anywhere}
+footer{background:var(--surface);border-top:1px solid var(--line)}
+.fg{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:48px;padding-block:48px}
+.fg h3{font-size:22px;margin-bottom:12px}.fg ul{list-style:none;margin:0;padding:0}.fg li{margin:7px 0}
+.fg a{text-decoration:none}.fg a:hover{color:var(--accent)}.fg p{margin:0 0 10px;color:var(--muted)}
+.base{background:var(--ink);color:#cfe0ec;text-align:center;padding:22px 0;border-bottom:6px solid var(--accent);font-size:15px}
+.base p{margin:0}.base .by{margin-top:4px;color:#fff;font-weight:500}
+.float{position:fixed;left:14px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:12px;z-index:15}
+.float a{width:46px;height:46px;border-radius:50%;background:var(--accent);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.float svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+dialog{border:0;border-radius:16px;padding:0;width:min(440px,calc(100% - 28px));background:var(--surface);color:var(--text);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+.dl{padding:28px;display:grid;gap:14px}.dl h2{font-size:28px;margin:0}
+.tabs{display:flex;gap:6px;background:var(--bg);border-radius:30px;padding:4px}
+.tabs button{flex:1;border:0;background:none;color:inherit;font:600 16px "Barlow Semi Condensed";padding:9px;border-radius:30px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--accent);color:#fff}
+.dl label{display:grid;gap:5px;font:600 15px "Barlow Semi Condensed"}
+.dl input,.dl select{font:400 16px Barlow;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);width:100%}
+.x{justify-self:end;border:0;background:none;color:var(--muted);font-size:26px;cursor:pointer;line-height:1}
+[hidden]{display:none!important}
+@media (max-width:900px){.cards,.pills,.split,.split.rev,.fg,.band,.ct{grid-template-columns:1fr}form.g{grid-template-columns:1fr;gap:22px}.chev{display:none}nav{gap:20px}.hero{min-height:480px}section{padding:56px 0}.band div.t{padding:30px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd0ef"/><stop offset="1" stop-color="#e8f4fb"/></linearGradient>
+<symbol id="chev" viewBox="0 0 70 110"><g fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><g stroke="#1f6fa8"><path d="M40 6l12 10 12-10M40 22l12 10 12-10M40 38l12 10 12-10"/></g><g stroke="#8fa5b5"><path d="M6 40l12 10 12-10M6 56l12 10 12-10M6 72l12 10 12-10M6 88l12 10 12-10"/></g></g></symbol>
+<symbol id="mark" viewBox="0 0 64 44"><path d="M14 12 Q28 8 46 11 Q49 12 46 13 Q28 16 14 14Z M30 12 L24 4 L28 4 L38 11Z M30 13 L24 21 L28 21 L38 14Z" fill="#1f6fa8"/><path d="M8 30 H56 L49 39 H15Z" fill="currentColor"/><rect x="20" y="24" width="18" height="6" fill="currentColor"/><rect x="42" y="25" width="9" height="5" fill="#8fa5b5"/></symbol>
+<symbol id="port" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice"><rect width="1200" height="420" fill="#0a3550"/><g id="pg"></g></symbol>
+<symbol id="wk" viewBox="0 0 60 140"><rect x="16" y="86" width="12" height="46" fill="#22344a"/><rect x="32" y="86" width="12" height="46" fill="#22344a"/><rect x="14" y="130" width="15" height="8" rx="2" fill="#111"/><rect x="31" y="130" width="15" height="8" rx="2" fill="#111"/><rect x="12" y="40" width="36" height="50" rx="8" fill="#c7e03a"/><rect x="12" y="60" width="36" height="5" fill="#eee"/><rect x="12" y="76" width="36" height="5" fill="#eee"/><circle cx="30" cy="27" r="11" fill="#d9a07a"/><path d="M17 24a13 13 0 0126 0z" fill="#f4f4f4"/><rect x="14" y="23" width="32" height="3" fill="#f4f4f4"/><path d="M12 48l-6 26M48 48l8 22" stroke="#c7e03a" stroke-width="10" stroke-linecap="round" fill="none"/></symbol>
+<symbol id="scene" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice"><rect width="1200" height="560" fill="url(#sky)"/><rect y="300" width="1200" height="100" fill="#3f86b8"/><path d="M0 330h1200M0 360h1200" stroke="#6fb0dc" stroke-width="3"/><path d="M120 300h120l-14 -26h-70z" fill="#3a4b5b"/><rect x="150" y="262" width="30" height="12" fill="#c7503f"/><rect y="395" width="1200" height="165" fill="#56636e"/><path d="M0 440h1200" stroke="#6e7c88" stroke-width="3"/>
+<rect x="1150" y="200" width="140" height="200" rx="14" fill="#dfe5ea"/><rect x="1165" y="220" width="60" height="60" fill="#8fb8d4"/>
+<rect x="620" y="130" width="540" height="255" fill="#b3303a"/><g stroke="#8d2229" stroke-width="5"><path d="M670 130v255M720 130v255M770 130v255M820 130v255M870 130v255M920 130v255M970 130v255M1020 130v255M1070 130v255M1120 130v255"/></g><rect x="620" y="130" width="540" height="12" fill="#7d1d23"/>
+<rect x="612" y="140" width="62" height="235" fill="#3a1519"/><rect x="618" y="300" width="50" height="72" fill="#c99a62"/><rect x="620" y="230" width="44" height="66" fill="#d8ae78"/>
+<rect x="600" y="385" width="590" height="18" fill="#252b30"/><g fill="#1a1d20"><circle cx="1000" cy="418" r="32"/><circle cx="1076" cy="418" r="32"/><circle cx="1140" cy="418" r="32"/></g><g fill="#8d98a1"><circle cx="1000" cy="418" r="13"/><circle cx="1076" cy="418" r="13"/><circle cx="1140" cy="418" r="13"/></g>
+<rect x="545" y="300" width="70" height="50" fill="#c99a62"/><rect x="545" y="322" width="70" height="6" fill="#a97d48"/>
+<use href="#wk" x="470" y="190" width="94" height="220"/><use href="#wk" x="590" y="205" width="86" height="200"/></symbol>
+<symbol id="carry" viewBox="0 0 300 360"><circle cx="165" cy="215" r="125" fill="#1f6fa8"/><path d="M60 360V285Q60 232 150 224Q240 232 240 285V360Z" fill="#8a96a0"/><path d="M122 226l28 22 28-22" fill="#aab4bc" stroke="#6f7b85" stroke-width="3"/><path d="M92 282L66 160M208 282L238 160" stroke="#8a96a0" stroke-width="30" stroke-linecap="round" fill="none"/><circle cx="66" cy="152" r="15" fill="#d9a07a"/><circle cx="238" cy="152" r="15" fill="#d9a07a"/><circle cx="150" cy="178" r="36" fill="#e0aa82"/><path d="M112 172a38 34 0 0176 0z" fill="#9aa5ad"/><rect x="108" y="168" width="84" height="8" rx="4" fill="#9aa5ad"/><path d="M134 192q16 14 32 0" stroke="#7a3f2c" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="138" cy="180" r="3" fill="#222"/><circle cx="162" cy="180" r="3" fill="#222"/><g transform="rotate(-5 150 80)"><rect x="40" y="22" width="220" height="100" rx="4" fill="#b3303a"/><g stroke="#8d2229" stroke-width="5"><path d="M70 22v100M100 22v100M130 22v100M160 22v100M190 22v100M220 22v100"/></g><rect x="40" y="22" width="220" height="10" fill="#7d1d23"/></g></symbol>
+<symbol id="ship" viewBox="0 0 360 280"><rect width="360" height="280" fill="url(#sky)"/><circle cx="290" cy="60" r="26" fill="#fff6c9"/><rect y="190" width="360" height="90" fill="#2f78a8"/><path d="M0 215q30-10 60 0t60 0 60 0 60 0 60 0 60 0M0 245q30-10 60 0t60 0 60 0 60 0 60 0 60 0" stroke="#69a9d2" stroke-width="3" fill="none"/><path d="M24 168H336L310 206H58Z" fill="#17324a"/><rect x="38" y="140" width="48" height="28" fill="#b3303a"/><rect x="88" y="140" width="48" height="28" fill="#e2943a"/><rect x="138" y="140" width="48" height="28" fill="#2f8a6b"/><rect x="188" y="140" width="48" height="28" fill="#b3303a"/><rect x="62" y="112" width="48" height="28" fill="#2f78a8"/><rect x="112" y="112" width="48" height="28" fill="#b3303a"/><rect x="162" y="112" width="48" height="28" fill="#e2943a"/><rect x="250" y="116" width="58" height="52" fill="#f2f5f7"/><rect x="262" y="124" width="34" height="12" fill="#6fb0dc"/><rect x="282" y="94" width="12" height="22" fill="#b3303a"/><path d="M230 60q40-8 90-2l-6 10q-40-6-78 0z" fill="#fff"/><path d="M260 30l30 14-22 6z" fill="#1f6fa8"/></symbol>
+<symbol id="biz" viewBox="0 0 280 300"><rect width="280" height="300" fill="#cfe3f0"/><circle cx="190" cy="120" r="100" fill="#1f6fa8"/><path d="M40 300V250Q40 205 140 198Q240 205 240 250V300Z" fill="#1d3347"/><path d="M112 200l28 40 28-40z" fill="#fff"/><path d="M134 204l6 36 6-36z" fill="#1f6fa8"/><circle cx="140" cy="140" r="34" fill="#e0aa82"/><path d="M106 134q2-34 34-34t34 34q-14-16-34-16t-34 16z" fill="#2a2420"/><path d="M126 156q14 12 28 0" stroke="#7a3f2c" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="128" cy="142" r="3" fill="#222"/><circle cx="152" cy="142" r="3" fill="#222"/><path d="M70 300l10-60 120 0 10 60z" fill="#c4ccd2"/><rect x="82" y="238" width="116" height="62" rx="4" fill="#dfe5ea"/><circle cx="140" cy="268" r="7" fill="#1f6fa8"/></symbol>
+</defs></svg>
+
+<header><div class="wrap">
+<div class="top">
+<a class="logo" href="#home" aria-label="EAF&amp;TETO home"><svg><use href="#mark"/></svg><span><b>EAF<i>&amp;</i>TETO</b><small>Import &amp; Export Logistics</small></span></a>
+<button id="acc" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 15-5 16 0"/></svg><span id="accl">My Account</span></button>
+</div>
+<nav aria-label="Main"><a href="#home">Home</a><a href="#about">About us</a><a href="#order">Send your order</a><a href="#media">Media</a><a href="#contact">Contact us</a></nav>
+</div></header>
+
+<main>
+<!-- HOME -->
+<div data-p="home">
+<div class="dark hero shade"><svg class="ph" aria-hidden="true"><use href="#scene"/></svg><svg class="chev" aria-hidden="true"><use href="#chev"/></svg>
+<div class="wrap"><h1>The smartest route for <em>your goods</em>, to and from anywhere</h1>
+<p>One stop shop for import and export services, domestic and international. Tell us what you need to move and we handle the rest.</p>
+<a class="btn red" href="#order">Send your order</a></div></div>
+<div class="arc"></div>
+<section><div class="wrap">
+<h2>Supply Chain and <em>Logistics Solutions</em></h2><p class="sub">Global trade, import and export professional services.</p>
+<div class="cards">
+<article class="card"><svg class="i" viewBox="0 0 48 48"><path d="M6 14l18-8 18 8v20L24 42 6 34zM6 14l18 8 18-8M24 22v20"/></svg><h3>Procurement and Supplying</h3><p>We compare suppliers and secure the best price and specifications for your order.</p></article>
+<article class="card"><svg class="i" viewBox="0 0 48 48"><circle cx="20" cy="20" r="12"/><path d="M29 29l13 13M14 20l4 4 8-8"/></svg><h3>Goods Collection and Inspection</h3><p>We collect your goods and inspect them against your standards before shipping.</p></article>
+<article class="card"><svg class="i" viewBox="0 0 48 48"><path d="M12 4h18l8 8v32H12zM30 4v8h8M18 22h14M18 30h14M18 37h8"/></svg><h3>Customs Clearance</h3><p>Documentation and clearance support for goods entering or leaving a country.</p></article>
+<article class="card"><svg class="i" viewBox="0 0 48 48"><path d="M4 32h40l-6 10H10zM12 32V22h18v10M30 26h8v6M18 22v-8h6v8"/></svg><h3>Freight Forwarding</h3><p>Sea, air and land freight coordinated from pickup to destination.</p></article>
+<article class="card"><svg class="i" viewBox="0 0 48 48"><path d="M4 8v34h40M12 32l9-10 7 6 14-16M34 12h8v8"/></svg><h3>Business Consulting and Studies</h3><p>Market studies and trade advice for commercial and industrial projects.</p></article>
+<article class="card"><svg class="i" viewBox="0 0 48 48"><path d="M3 12h26v22H3zM29 20h9l6 8v6H29z"/><circle cx="13" cy="37" r="4"/><circle cx="36" cy="37" r="4"/></svg><h3>Domestic Distribution</h3><p>Local import and export trade, warehousing and delivery inside a single country.</p></article>
+</div></div></section>
+<section class="alt"><div class="wrap split rev">
+<div class="carry"><svg role="img" aria-label="Delivery worker carrying a shipping container"><use href="#carry"/></svg></div>
+<div><h2>Why EAF&amp;TETO is your best choice <em>for trade solutions</em></h2><p class="sub" style="margin-bottom:26px">We keep every shipment simple, transparent and on schedule.</p>
+<div class="pill"><span><svg viewBox="0 0 48 48"><path d="M8 28v-6a16 16 0 0132 0v6M8 26h6v10H8zM34 26h6v10h-6zM34 36c0 5-6 6-10 6"/></svg></span><div><h3>Continuous Support</h3><p>A real person answers for your order.</p></div></div>
+<div class="pill"><span><svg viewBox="0 0 48 48"><path d="M4 24l10-8 10 4 10-4 10 8-10 10-6-4h-8l-6 4zM18 30l6 6"/></svg></span><div><h3>Integrated Services</h3><p>Sourcing, customs and freight under one roof.</p></div></div>
+<div class="pill"><span><svg viewBox="0 0 48 48"><rect x="6" y="12" width="36" height="26" rx="4"/><path d="M6 20h36M32 30h6"/></svg></span><div><h3>Transparent Pricing</h3><p>Itemized quotes before you commit.</p></div></div></div>
+</div></section>
+<section><div class="wrap"><div class="band"><div class="t"><h2>Ready to <em>ship</em>?</h2><p>Send us your product, quantity and destination. We reply with a clear quote and a shipping plan.</p><a class="btn" href="#order">Send your order</a></div><svg role="img" aria-label="Business advisor with laptop"><use href="#biz"/></svg></div></div></section>
+</div>
+
+<!-- ABOUT -->
+<div data-p="about" hidden>
+<div class="dark page-ban shade"><svg class="ph" aria-hidden="true"><use href="#port"/></svg><div class="wrap"><h1>About us</h1></div></div><div class="arc"></div>
+<section><div class="wrap split">
+<div><h2>The Closest Way Between You <em>and Your Cargo</em></h2>
+<p>EAF&amp;TETO is an import and export company that helps businesses move goods domestically and across borders. We receive and send shipments anywhere you need.</p>
+<p>Every client works with a team that treats each order personally: we understand the requirement, source reliably, prepare the paperwork correctly and keep you informed until delivery.</p>
+<a class="btn red" href="#order">Send your order</a></div>
+<div class="img"><svg role="img" aria-label="Cargo ship carrying containers"><use href="#ship"/></svg><div class="tag">EAF&amp;TETO</div></div></div></section>
+<section class="alt"><div class="wrap split rev">
+<div class="img"><svg role="img" aria-label="Business advisor"><use href="#biz"/></svg></div>
+<div><h2>Our <em>Vision</em></h2><p>To become the most trusted trade partner for businesses that import and export, by making every shipment simple, transparent and reliable.</p>
+<h2 style="margin-top:26px">Our <em>Mission</em></h2><p>To connect buyers, suppliers and carriers worldwide, handling sourcing, customs and logistics so our clients can focus on growing their business.</p></div>
+</div></section>
+</div>
+
+<!-- ORDER -->
+<div data-p="order" hidden>
+<div class="dark page-ban shade"><svg class="ph" aria-hidden="true"><use href="#port"/></svg><div class="wrap"><h1>Send your order</h1></div></div><div class="arc"></div>
+<section style="padding-top:30px"><div class="wrap"><p class="sub">Fill in the shipment details and we will reply with a quote.</p>
+<form class="g rq light-form" data-sub="Shipment order" style="max-width:none">
+<label class="fld"><span>Product Name <i>*</i></span><input name="Product name" required placeholder="Enter product name"></label>
+<label class="fld"><span>Product Type <i>*</i></span><select name="Product type" required><option value="">Select product type</option><option>General cargo</option><option>Electronics</option><option>Machinery</option><option>Food and beverages</option><option>Textiles</option><option>Chemicals</option><option>Other</option></select></label>
+<label class="fld"><span>From <i>*</i></span><select name="From" required class="cty"><option value="">Select a country</option></select></label>
+<label class="fld"><span>To <i>*</i></span><select name="To" required class="cty"><option value="">Select a country</option></select></label>
+<label class="fld"><span>Quantity <i>*</i></span><input name="Quantity" required placeholder="Enter quantity"></label>
+<label class="fld"><span>Shipping Method</span><select name="Shipping method"><option value="">Not sure yet</option><option>Sea</option><option>Air</option><option>Land</option></select></label>
+<label class="fld"><span>Full Name <i>*</i></span><input name="Name" required autocomplete="name" placeholder="Enter your full name"></label>
+<label class="fld"><span>Phone or WhatsApp <i>*</i></span><input name="Phone" type="tel" required autocomplete="tel" placeholder="Enter your phone number"></label>
+<label class="fld full"><span>Additional Product Information</span><textarea name="Details" placeholder="Size, weight, packaging or any special requirement"></textarea></label>
+<div class="submit"><button class="btn red" type="submit">Send by email</button><button class="btn" type="button" data-send>Send on WhatsApp</button><p class="msg" role="status"></p></div>
+</form></div></section>
+</div>
+
+<!-- MEDIA -->
+<div data-p="media" hidden>
+<div class="dark page-ban shade"><svg class="ph" aria-hidden="true"><use href="#port"/></svg><div class="wrap"><h1>Media</h1></div></div><div class="arc"></div>
+<section style="padding-top:30px"><div class="wrap"><h2>News and <em>updates</em></h2><p class="sub">Shipment updates and company announcements.</p><div class="empty">No updates published yet. Check back soon.</div></div></section>
+</div>
+
+<!-- CONTACT -->
+<div data-p="contact" hidden>
+<div class="dark page-ban shade"><svg class="ph" aria-hidden="true"><use href="#port"/></svg><div class="wrap"><h1>Contact us</h1></div></div><div class="arc"></div>
+<section style="padding-top:30px"><div class="wrap"><div class="ct">
+<article class="card"><h3>Phone and WhatsApp</h3><p><a href="tel:+201132742388" data-copy="01132742388" target="_blank" rel="noopener">01132742388</a></p></article>
+<article class="card"><h3>Email</h3><p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=eng.elsaid.fathi@gmail.com" data-copy="eng.elsaid.fathi@gmail.com" target="_blank" rel="noopener">eng.elsaid.fathi@gmail.com</a></p></article>
+<article class="card"><h3>Coverage</h3><p style="font:600 21px 'Barlow Semi Condensed';color:var(--text)">Worldwide: we receive and send anywhere you need</p></article>
+</div></div></section>
+</div>
+
+<div data-p="home contact" class="dark fm" hidden><svg class="ph" aria-hidden="true"><use href="#port"/></svg><div class="wrap shade-in" style="position:relative;z-index:2"><h2>Let’s Build Smarter <em>Logistics Solutions</em> Together</h2>
+<form class="g rq" data-sub="Inquiry">
+<label class="fld"><span>Full Name <i>*</i></span><input name="Name" required placeholder="Enter your full name" autocomplete="name"></label>
+<label class="fld"><span>Email Address <i>*</i></span><input name="Email" type="email" required placeholder="Enter your email address" autocomplete="email"></label>
+<div class="fld"><span>Phone Number <i>*</i></span><div class="row"><select name="Dial code" aria-label="Country code" class="dial"></select><input name="Phone" type="tel" required placeholder="Enter your phone number" aria-label="Phone number"></div></div>
+<label class="fld"><span>Choose Country <i>*</i></span><select name="Country" required class="cty"><option value="">Select your country</option></select></label>
+<label class="fld full"><span>How did you hear about us?</span><select name="Heard about us"><option value="">Select how you heard about us</option><option>Social media</option><option>Search engine</option><option>Friend or colleague</option><option>Other</option></select></label>
+<label class="fld full"><span>Your Message <i>*</i></span><textarea name="Message" required placeholder="Tell us more about your inquiry"></textarea></label>
+<div class="submit"><button class="btn" type="submit">Submit by email</button><button class="btn" type="button" data-send>Send on WhatsApp</button><p class="msg" role="status"></p></div>
+</form></div></div>
+</main>
+
+<footer><div class="wrap fg">
+<div><a class="logo" href="#home"><svg><use href="#mark"/></svg><span><b>EAF<i>&amp;</i>TETO</b><small>Import &amp; Export Logistics</small></span></a>
+<p style="margin-top:14px;max-width:46ch">One stop shop for import and export services, to and from anywhere in the world.</p></div>
+<div><h3>Pages</h3><ul><li><a href="#home">Home</a></li><li><a href="#about">About us</a></li><li><a href="#order">Send your order</a></li><li><a href="#media">Media</a></li><li><a href="#contact">Contact us</a></li></ul></div>
+<div><h3>Contact Us</h3><p><a href="tel:+201132742388" data-copy="01132742388" target="_blank" rel="noopener">01132742388</a></p><p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=eng.elsaid.fathi@gmail.com" data-copy="eng.elsaid.fathi@gmail.com" target="_blank" rel="noopener">eng.elsaid.fathi@gmail.com</a></p><p>Worldwide: we receive and send anywhere you need.</p></div>
+</div>
+<div class="base"><p>© 2026 EAF&amp;TETO. All rights reserved.</p><p class="by">Founded by Elsaid Elsayed</p></div></footer>
+
+<div class="float"><a href="tel:+201132742388" data-copy="01132742388" target="_blank" rel="noopener" aria-label="Call us"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></a>
+<a href="https://wa.me/201132742388" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M3 21l1.5-5A9 9 0 1112 21a9 9 0 01-4.5-1.2zM9 8c0 4 3 7 7 7l1-2-2-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2z"/></svg></a>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=eng.elsaid.fathi@gmail.com" data-copy="eng.elsaid.fathi@gmail.com" target="_blank" rel="noopener" aria-label="Email us"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a></div>
+<div id="toast" role="status" hidden style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:30px;z-index:50;font-weight:500;box-shadow:0 6px 20px rgba(0,0,0,.35)"></div>
+
+<dialog id="dg"><div class="dl"><button class="x" type="button" id="dx" aria-label="Close">×</button>
+<div id="v-in-up"><div class="tabs" role="tablist"><button type="button" role="tab" id="t-in" aria-selected="true">Sign in</button><button type="button" role="tab" id="t-up" aria-selected="false">Create account</button></div>
+<form id="fin" style="display:grid;gap:14px;margin-top:16px"><h2>Welcome back</h2><label>Email<input name="e" type="email" required autocomplete="email"></label><label>Password<input name="w" type="password" required autocomplete="current-password"></label><button class="btn red" type="submit">Sign in</button></form>
+<form id="fup" hidden style="display:grid;gap:14px;margin-top:16px"><h2>Create your account</h2><label>Full name<input name="n" required autocomplete="name"></label><label>Email<input name="e" type="email" required autocomplete="email"></label><label>Phone number<input name="p" type="tel" required autocomplete="tel"></label><label>Country<select name="c" required class="cty"><option value="">Select your country</option></select></label><label>Password (8 characters or more)<input name="w" type="password" required minlength="8" autocomplete="new-password"></label><button class="btn red" type="submit">Create account</button></form></div>
+<div id="v-acct" hidden><h2 id="an">Your account</h2><p id="ad" style="color:var(--muted)"></p><button class="btn red" type="button" id="so">Sign out</button></div>
+<p class="msg" id="am" role="status"></p></div></dialog>
+
+<script>
+var $=function(s){return document.querySelector(s)};
+var C=[["Egypt","+20"],["Saudi Arabia","+966"],["United Arab Emirates","+971"],["Turkey","+90"],["China","+86"],["Germany","+49"],["United Kingdom","+44"],["United States","+1"],["India","+91"],["Italy","+39"],["France","+33"],["Other","+"]];
+document.querySelectorAll('.cty').forEach(function(s){C.forEach(function(c){s.add(new Option(c[0],c[0]))})});
+document.querySelectorAll('.dial').forEach(function(s){C.forEach(function(c){s.add(new Option(c[1],c[1]))})});
+/* port artwork */
+var h='',x,y,k=7,col=['#1d4a68','#245a7c','#7a2f3a','#18405c','#8c3b46','#2a5f80'];
+function rnd(){k=(k*9301+49297)%233280;return k/233280}
+for(y=230;y<420;y+=38)for(x=-20;x<1200;x+=82){h+='<rect x="'+x+'" y="'+y+'" width="78" height="35" fill="'+col[Math.floor(rnd()*6)]+'"/>'}
+h+='<path d="M120 230V40h14v190M120 60h340M380 60v50M300 60v90M780 230V70h12v160M780 80h300" stroke="#3b6f90" stroke-width="6" fill="none"/>';
+$('#pg').innerHTML=h;
+/* pages */
+function route(){var P=['home','about','order','media','contact'],p=(location.hash||'#home').slice(1);if(P.indexOf(p)<0)p='home';
+document.querySelectorAll('[data-p]').forEach(function(e){e.hidden=e.dataset.p.split(' ').indexOf(p)<0});
+document.querySelectorAll('nav a').forEach(function(a){if(a.getAttribute('href')==='#'+p)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});window.scrollTo(0,0)}
+addEventListener('hashchange',route);route();
+/* forms: Gmail compose or WhatsApp */
+function pack(f){var t=[].filter.call(f.elements,function(e){return e.name&&e.value}).map(function(e){return e.name+': '+e.value}).join('\n');return{s:(f.dataset.sub||'Inquiry'),t:t}}
+function done(f,m){f.querySelector('.msg').textContent=m}
+document.querySelectorAll('form.rq').forEach(function(f){
+f.onsubmit=function(e){e.preventDefault();var b=pack(f);window.open('https://mail.google.com/mail/?view=cm&fs=1&to=eng.elsaid.fathi@gmail.com&su='+encodeURIComponent(b.s+' - EAF&TETO')+'&body='+encodeURIComponent(b.t),'_blank','noopener');done(f,'Gmail opened in a new tab with your request. Press send there to finish.')};
+f.querySelector('[data-send]').onclick=function(){if(!f.reportValidity())return;window.open('https://wa.me/201132742388?text='+encodeURIComponent(pack(f).s+'\n'+pack(f).t),'_blank','noopener');done(f,'WhatsApp opened with your request. Press send there to finish.')}});
+/* copy + toast */
+var tt;function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},2600)}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-copy]');if(!a)return;var v=a.dataset.copy;try{navigator.clipboard.writeText(v).then(function(){toast('Copied: '+v)},function(){toast(v)})}catch(x){toast(v)}});
+/* account (demo, stored in this browser only) */
+var mem={u:{},s:''};
+function ld(k,f){try{var v=localStorage.getItem(k);return v?JSON.parse(v):f}catch(e){return mem[k==='ut_users'?'u':'s']||f}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){mem[k==='ut_users'?'u':'s']=v}}
+async function hs(t){var b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return Array.from(new Uint8Array(b)).map(function(v){return v.toString(16).padStart(2,'0')}).join('')}
+var dg=$('#dg'),am=$('#am');
+function view(v){$('#v-in-up').hidden=v==='acct';$('#v-acct').hidden=v!=='acct';if(v!=='acct'){var up=v==='up';$('#fin').hidden=up;$('#fup').hidden=!up;$('#t-in').setAttribute('aria-selected',!up);$('#t-up').setAttribute('aria-selected',up)}am.textContent=''}
+function paint(){var u=ld('ut_users',{})[ld('ut_session','')];$('#accl').textContent=u?u.n.split(' ')[0]:'My Account';if(u){$('#an').textContent='Hello, '+u.n;$('#ad').textContent=u.e+' · '+u.p+' · '+u.c}}
+$('#acc').onclick=function(){paint();view(ld('ut_users',{})[ld('ut_session','')]?'acct':'in');dg.showModal()};
+$('#dx').onclick=function(){dg.close()};dg.addEventListener('click',function(e){if(e.target===dg)dg.close()});
+$('#t-in').onclick=function(){view('in')};$('#t-up').onclick=function(){view('up')};
+$('#fup').onsubmit=async function(e){e.preventDefault();var d=new FormData(e.target),em=d.get('e').toLowerCase(),u=ld('ut_users',{});
+if(u[em]){am.textContent='An account with this email already exists. Sign in instead.';return}
+u[em]={n:d.get('n'),e:em,p:d.get('p'),c:d.get('c'),w:await hs(d.get('w'))};sv('ut_users',u);sv('ut_session',em);paint();view('acct');am.textContent='Account created. You are signed in.'};
+$('#fin').onsubmit=async function(e){e.preventDefault();var d=new FormData(e.target),em=d.get('e').toLowerCase(),u=ld('ut_users',{})[em];
+if(!u||u.w!==await hs(d.get('w'))){am.textContent='Email or password is incorrect. Check them or create an account.';return}
+sv('ut_session',em);paint();view('acct');am.textContent='Signed in.'};
+$('#so').onclick=function(){sv('ut_session','');paint();view('in');am.textContent='You have signed out.'};
+paint();
+</script>
+</body>
+</html>
